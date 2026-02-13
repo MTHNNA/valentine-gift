@@ -1,75 +1,100 @@
 <!DOCTYPE html>
 <html lang="ar">
 <head>
-  <meta charset="UTF-8">
-  <title>أرسل تهنئتك</title>
-  <style>
-    body {
-      font-family: 'Tajawal', sans-serif;
-      background: #fff0f5;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-    }
-    .container {
-      background: #fff;
-      padding: 30px;
-      border-radius: 15px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-      text-align: center;
-    }
-    input, select, textarea, button {
-      margin: 10px 0;
-      padding: 10px;
-      border: 1px solid #ccc;
-      border-radius: 10px;
-      width: 100%;
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>إرسال هدية عيد الحب</title>
+
+<style>
+body{
+font-family:Tajawal, sans-serif;
+background:linear-gradient(135deg,#ffd6e7,#ffeef5);
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
+margin:0;
+}
+
+.card{
+background:#fff;
+padding:25px;
+border-radius:20px;
+width:350px;
+box-shadow:0 10px 25px rgba(0,0,0,.15);
+text-align:center;
+}
+
+input,select,textarea{
+width:100%;
+padding:10px;
+margin-top:10px;
+border-radius:10px;
+border:1px solid #ddd;
+font-size:15px;
+}
+
+button{
+margin-top:15px;
+padding:12px;
+width:100%;
+border:none;
+border-radius:12px;
+background:linear-gradient(90deg,#ff6b81,#7b5cff);
+color:white;
+font-size:16px;
+cursor:pointer;
+}
+
+#result{
+margin-top:15px;
+word-break:break-all;
+background:#f3f3f3;
+padding:10px;
+border-radius:10px;
+}
+</style>
 </head>
+
 <body>
-  <div class="container">
-    <h2>🎁 أرسل تهنئة عيد الحب</h2>
-    <input type="text" id="to" placeholder="اسم المرسل إليه">
-    <select id="messageChoice">
-      <option value="">✏️ أريد كتابة رسالتي الخاصة</option>
-      <option value="أنت قلبي وحياتي. أحبك للأبد ❤️">أنت قلبي وحياتي. أحبك للأبد ❤️</option>
-      <option value="كل لحظة معك هي هدية. 💝">كل لحظة معك هي هدية. 💝</option>
-      <option value="أنت نبضي، وأجمل ما في أيامي. 🌹">أنت نبضي، وأجمل ما في أيامي. 🌹</option>
-      <option value="وجودك يكفي لأسعد قلبي. 💘">وجودك يكفي لأسعد قلبي. 💘</option>
-      <option value="كل عام وأنت الحب. 💌">كل عام وأنت الحب. 💌</option>
-    </select>
-    <textarea id="customMessage" placeholder="اكتب رسالتك هنا إذا أردت..."></textarea>
-    <label>اختر الأغنية</label>
-    <select id="song">
-      <option value="1">أغنية رومانسية 1</option>
-      <option value="2">أغنية رومانسية 2</option>
-    </select>
-    <button onclick="generateLink()">🎉 أنشئ الرابط</button>
-    <p id="result"></p>
-  </div>
-  <script>
-    const messageChoice = document.getElementById('messageChoice');
-    const customMessage = document.getElementById('customMessage');
-    messageChoice.addEventListener('change', () => {
-      if (messageChoice.value) customMessage.value = '';
-    });
-    customMessage.addEventListener('input', () => {
-      if (customMessage.value) messageChoice.value = '';
-    });
-    function generateLink() {
-      const to = document.getElementById('to').value.trim();
-      const msg = customMessage.value.trim() || messageChoice.value;
-      const song = document.getElementById('song').value;
-      if (!to || !msg) {
-        alert('يرجى إدخال الاسم واختيار أو كتابة رسالة.');
-        return;
-      }
-      const link = `gift.html?to=${encodeURIComponent(to)}&msg=${encodeURIComponent(msg)}&song=${song}`;
-      document.getElementById('result').innerHTML = `📎 رابطك: <a href="${link}" target="_blank">${link}</a>`;
-    }
-  </script>
+
+<div class="card">
+<h2>🎁 اصنع هدية</h2>
+
+<input id="name" placeholder="اسم الشخص">
+
+<select id="preset">
+<option value="">اختر رسالة جاهزة</option>
+<option>كل سنة وأنت أجمل أقداري ❤️</option>
+<option>وجودك أجمل هدية في حياتي 💕</option>
+<option>أحبك أكثر من أمس وأقل من غدًا 💘</option>
+<option>أنت سعادتي الدائمة 💞</option>
+<option>قلبي اختارك للأبد 💓</option>
+</select>
+
+<textarea id="custom" placeholder="أو اكتب رسالتك الخاصة"></textarea>
+
+<select id="song">
+<option value="1">الأغنية الأولى</option>
+<option value="2">الأغنية الثانية</option>
+</select>
+
+<button onclick="create()">إنشاء الرابط</button>
+
+<div id="result"></div>
+</div>
+
+<script>
+function create(){
+let name=document.getElementById("name").value || "أنت";
+let msg=document.getElementById("custom").value || document.getElementById("preset").value;
+let song=document.getElementById("song").value;
+
+let link=`${location.origin}${location.pathname.replace('form.html','')}gift.html?to=${encodeURIComponent(name)}&msg=${encodeURIComponent(msg)}&song=${song}`;
+
+document.getElementById("result").innerHTML=`انسخ الرابط وارسله:<br><a href="${link}" target="_blank">${link}</a>`;
+}
+</script>
+
 </body>
 </html>
