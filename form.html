@@ -63,16 +63,19 @@ border-radius:10px;
 
 <input id="name" placeholder="اسم الشخص">
 
-<select id="preset">
+<select id="preset" onchange="toggleCustom()">
 <option value="">اختر رسالة جاهزة</option>
-<option>كل سنة وأنت أجمل أقداري ❤️</option>
-<option>وجودك أجمل هدية في حياتي 💕</option>
-<option>أحبك أكثر من أمس وأقل من غدًا 💘</option>
-<option>أنت سعادتي الدائمة 💞</option>
-<option>قلبي اختارك للأبد 💓</option>
+
+<option value="كل سنة وأنت أجمل أقداري ❤️">كل سنة وأنت أجمل أقداري ❤️</option>
+<option value="وجودك أجمل هدية في حياتي 💕">وجودك أجمل هدية في حياتي 💕</option>
+<option value="أحبك أكثر من أمس وأقل من غدًا 💘">أحبك أكثر من أمس وأقل من غدًا 💘</option>
+<option value="أنت سعادتي الدائمة 💞">أنت سعادتي الدائمة 💞</option>
+<option value="قلبي اختارك للأبد 💓">قلبي اختارك للأبد 💓</option>
+
+<option value="custom">✍️ اكتب رسالتك</option>
 </select>
 
-<textarea id="custom" placeholder="أو اكتب رسالتك الخاصة"></textarea>
+<textarea id="custom" placeholder="اكتب رسالتك هنا..." style="display:none"></textarea>
 
 <select id="song">
 <option value="1">الأغنية الأولى</option>
@@ -85,15 +88,40 @@ border-radius:10px;
 </div>
 
 <script>
+
+function toggleCustom(){
+let preset=document.getElementById("preset").value;
+let custom=document.getElementById("custom");
+
+if(preset === "custom"){
+custom.style.display="block";
+custom.focus();
+}else{
+custom.style.display="none";
+}
+}
+
 function create(){
 let name=document.getElementById("name").value || "أنت";
-let msg=document.getElementById("custom").value || document.getElementById("preset").value;
+
+let preset=document.getElementById("preset").value;
+let custom=document.getElementById("custom").value;
+
+let msg;
+
+if(preset === "custom"){
+msg = custom || "❤️";
+}else{
+msg = preset || custom || "❤️";
+}
+
 let song=document.getElementById("song").value;
 
 let link=`${location.origin}${location.pathname.replace('form.html','')}gift.html?to=${encodeURIComponent(name)}&msg=${encodeURIComponent(msg)}&song=${song}`;
 
 document.getElementById("result").innerHTML=`انسخ الرابط وارسله:<br><a href="${link}" target="_blank">${link}</a>`;
 }
+
 </script>
 
 </body>
