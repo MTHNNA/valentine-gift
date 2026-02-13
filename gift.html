@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>هدية عيد الحب</title>
+  <style>
+    body {
+      font-family: 'Tajawal', sans-serif;
+      background: linear-gradient(135deg, #ffe0f0, #ffddee);
+      color: #4b1e2e;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      overflow: hidden;
+      animation: fadeIn 2s ease;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .card {
+      background: white;
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+      max-width: 500px;
+      text-align: center;
+      position: relative;
+    }
+    .hearts {
+      position: absolute;
+      top: -20px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 10px;
+    }
+    .heart {
+      width: 30px;
+      height: 30px;
+      background: radial-gradient(circle, #ff80aa, #ff3d77);
+      clip-path: polygon(50% 0%, 61% 7%, 70% 20%, 75% 35%, 50% 100%, 25% 35%, 30% 20%, 39% 7%);
+      animation: pulse 1.2s infinite ease-in-out;
+    }
+    .heart:nth-child(2) { animation-delay: 0.2s; }
+    .heart:nth-child(3) { animation-delay: 0.4s; }
+    @keyframes pulse {
+      0% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.2); opacity: 0.8; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+    h1, p, audio {
+      opacity: 0;
+      transition: opacity 1s ease;
+    }
+    #revealBtn {
+      background: linear-gradient(90deg,#ff6b81,#7b5cff);
+      color: #fff;
+      padding: 12px 24px;
+      font-size: 16px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      margin-top: 30px;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="hearts">
+      <div class="heart"></div>
+      <div class="heart"></div>
+      <div class="heart"></div>
+    </div>
+    <h1 id="to">💌 مفاجأة لك!</h1>
+    <p id="msg">اضغط على الزر أدناه لتفتح الرسالة 🎁</p>
+    <button id="revealBtn">اضغط هنا</button>
+    <audio id="player" controls style="margin-top: 20px; width: 100%">
+      <source id="song" src="" type="audio/mp4">
+      متصفحك لا يدعم تشغيل الصوت.
+    </audio>
+  </div>
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const toText = decodeURIComponent(params.get('to') || 'أنت');
+    const msgText = decodeURIComponent(params.get('msg') || 'أحبك من كل قلبي ❤️');
+    const songId = params.get('song') || '1';
+    const songs = {
+      '1': 'assets/audio/song1.m4a',
+      '2': 'assets/audio/song2.m4a'
+    };
+    const toElem = document.getElementById('to');
+    const msgElem = document.getElementById('msg');
+    const audio = document.getElementById('player');
+    const revealBtn = document.getElementById('revealBtn');
+    document.getElementById('song').src = songs[songId] || songs['1'];
+    audio.load();
+    revealBtn.addEventListener('click', () => {
+      toElem.textContent = `إلى ${toText}`;
+      msgElem.textContent = msgText;
+      toElem.style.opacity = 1;
+      msgElem.style.opacity = 1;
+      audio.style.opacity = 1;
+      audio.play();
+      revealBtn.style.display = 'none';
+    });
+  </script>
+</body>
+</html>
