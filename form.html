@@ -149,7 +149,7 @@ let customMsg = encodeURIComponent(custom || "");
 
 let song=document.getElementById("song").value;
 
-let link=`${location.origin}/gift.html?to=${encodeURIComponent(name)}&msg=${encodeURIComponent(msg)}&song=${song}`;
+let link=`${location.origin}/gift.html?to=${encodeURIComponent(name)}&id=${msgId}&c=${customMsg}&song=${song}`;
 
 
 document.getElementById("result").innerHTML=`انسخ الرابط وارسله:<br><a href="${link}" target="_blank">${link}</a>`;
