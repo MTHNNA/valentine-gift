@@ -93,7 +93,19 @@ font-weight:bold;
 // قراءة البيانات من الرابط
 const params=new URLSearchParams(location.search);
 const to=params.get("to")||"أنت";
-const msg=params.get("msg")||"أحبك ❤️";
+const id=params.get("id")||0;
+const custom=params.get("c");
+
+const messages={
+1:"كل سنة وأنت أجمل أقداري ❤️",
+2:"وجودك أجمل هدية في حياتي 💕",
+3:"أحبك أكثر من أمس وأقل من غدًا 💘",
+4:"أنت سعادتي الدائمة 💞",
+5:"قلبي اختارك للأبد 💓"
+};
+
+const msg = custom ? decodeURIComponent(custom) : (messages[id] || "أحبك ❤️");
+
 const song=params.get("song")||"1";
 
 // الأصوات من داخل الموقع (مهم جداً)
