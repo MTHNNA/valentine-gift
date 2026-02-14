@@ -53,6 +53,34 @@ background:#f3f3f3;
 padding:10px;
 border-radius:10px;
 }
+
+/* feedback */
+.feedback{
+position:fixed;
+bottom:15px;
+left:50%;
+transform:translateX(-50%);
+background:#ffffffdd;
+padding:10px 18px;
+border-radius:20px;
+box-shadow:0 4px 15px rgba(0,0,0,.15);
+font-size:14px;
+text-align:center;
+}
+
+.feedback a{
+margin:5px;
+display:inline-block;
+padding:6px 12px;
+border-radius:10px;
+color:white;
+text-decoration:none;
+font-weight:bold;
+}
+
+.wa{background:#25D366;}
+.tg{background:#0088cc;}
+.ig{background:linear-gradient(45deg,#feda75,#fa7e1e,#d62976,#962fbf,#4f5bd5);}
 </style>
 </head>
 
@@ -87,41 +115,33 @@ border-radius:10px;
 <div id="result"></div>
 </div>
 
-<script>
+<div class="feedback">
+💬 أعجبك الموقع؟
+<br>
+<a class="wa" target="_blank" href="https://wa.me/967733666751?text=شفت%20موقعك%20وكان%20جميل%20❤️">واتساب</a>
+<a class="tg" target="_blank" href="https://t.me/BN_MUTHANNA_3">تلجرام</a>
+<a class="ig" target="_blank" href="https://www.instagram.com/bn_muthanna_1">انستقرام</a>
+</div>
 
+<script>
 function toggleCustom(){
 let preset=document.getElementById("preset").value;
 let custom=document.getElementById("custom");
-
-if(preset === "custom"){
-custom.style.display="block";
-custom.focus();
-}else{
-custom.style.display="none";
-}
+custom.style.display = preset==="custom" ? "block":"none";
 }
 
 function create(){
 let name=document.getElementById("name").value || "أنت";
-
 let preset=document.getElementById("preset").value;
 let custom=document.getElementById("custom").value;
 
-let msg;
-
-if(preset === "custom"){
-msg = custom || "❤️";
-}else{
-msg = preset || custom || "❤️";
-}
-
+let msg = preset==="custom" ? (custom||"❤️") : (preset||custom||"❤️");
 let song=document.getElementById("song").value;
 
 let link=`${location.origin}${location.pathname.replace('form.html','')}gift.html?to=${encodeURIComponent(name)}&msg=${encodeURIComponent(msg)}&song=${song}`;
 
 document.getElementById("result").innerHTML=`انسخ الرابط وارسله:<br><a href="${link}" target="_blank">${link}</a>`;
 }
-
 </script>
 
 </body>
