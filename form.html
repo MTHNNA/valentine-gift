@@ -135,7 +135,18 @@ let name=document.getElementById("name").value || "أنت";
 let preset=document.getElementById("preset").value;
 let custom=document.getElementById("custom").value;
 
-let msg = preset==="custom" ? (custom||"❤️") : (preset||custom||"❤️");
+// تحويل الرسالة إلى رقم
+let messages = {
+"كل سنة وأنت أجمل أقداري ❤️":1,
+"وجودك أجمل هدية في حياتي 💕":2,
+"أحبك أكثر من أمس وأقل من غدًا 💘":3,
+"أنت سعادتي الدائمة 💞":4,
+"قلبي اختارك للأبد 💓":5
+};
+
+let msgId = messages[preset] || 0;
+let customMsg = encodeURIComponent(custom || "");
+
 let song=document.getElementById("song").value;
 
 let link=`${location.origin}/gift.html?to=${encodeURIComponent(name)}&msg=${encodeURIComponent(msg)}&song=${song}`;
