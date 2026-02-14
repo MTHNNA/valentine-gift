@@ -138,7 +138,8 @@ let custom=document.getElementById("custom").value;
 let msg = preset==="custom" ? (custom||"❤️") : (preset||custom||"❤️");
 let song=document.getElementById("song").value;
 
-let link=`${location.origin}${location.pathname.replace('form.html','')}gift.html?to=${encodeURIComponent(name)}&msg=${encodeURIComponent(msg)}&song=${song}`;
+let link=`${location.origin}/gift.html?to=${encodeURIComponent(name)}&msg=${encodeURIComponent(msg)}&song=${song}`;
+
 
 document.getElementById("result").innerHTML=`انسخ الرابط وارسله:<br><a href="${link}" target="_blank">${link}</a>`;
 }
